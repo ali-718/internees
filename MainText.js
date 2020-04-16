@@ -1,15 +1,16 @@
 import React, { Component } from "react";
-import { Text, View, TextInput } from "react-native";
+import { Text, View, TextInput, Button } from "react-native";
 
 export default class MainText extends Component {
   state = {
     Name: "Ali",
-    Age: "21",
+    Age: this.props.AgeValue,
   };
 
   render() {
     return (
       <View style={{ width: "100%", alignItems: "center", marginTop: 50 }}>
+        <Text style={{ fontSize: 25 }}>{this.props.heading}</Text>
         <TextInput
           placeholder="Name"
           style={{
@@ -20,6 +21,7 @@ export default class MainText extends Component {
             borderColor: "black",
             borderRadius: 10,
             paddingLeft: 10,
+            marginTop: 30,
           }}
           onChangeText={(val) => {
             this.setState({
@@ -50,10 +52,10 @@ export default class MainText extends Component {
           placeholderTextColor="gray"
         />
 
-        <View style={{ width: "100%", alignItems: "center", marginTop: 50 }}>
-          <Text>Name: {this.state.Name}</Text>
-          <Text>Age: {this.state.Age}</Text>
-        </View>
+        <Button
+          title="press me"
+          onPress={() => this.props.AddToArray(this.state)}
+        />
       </View>
     );
   }

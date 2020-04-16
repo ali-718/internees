@@ -17,6 +17,16 @@ export default class App extends Component {
     alert("i am clicked");
   };
 
+  state = {
+    data: [],
+  };
+
+  AddData = (item) => {
+    this.setState({
+      data: [...this.state.data, item],
+    });
+  };
+
   constructor() {
     super();
     // alert("I am constructor");
@@ -32,7 +42,26 @@ export default class App extends Component {
       <SafeAreaView
         style={{ width: "100%", flex: 1, paddingTop: StatusBar.currentHeight }}
       >
-        <MainText />
+        <MainText
+          heading={"Test Form"}
+          AgeValue={"25"}
+          DisplayAlert={this.ShowAlert}
+          AddToArray={(item) => this.AddData(item)}
+        />
+        {console.log(this.state)}
+
+        <View style={{ width: "100%", alignItems: "center" }}>
+          {this.state.data.map((item) => {
+            if (item.Age > 20) {
+              return (
+                <View style={{ marginTop: 20 }}>
+                  <Text>Name: {item.Name}</Text>
+                  <Text>Age: {item.Age}</Text>
+                </View>
+              );
+            }
+          })}
+        </View>
         {/* <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
