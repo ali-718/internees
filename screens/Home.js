@@ -7,8 +7,10 @@ import {
   Dimensions,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { Dropdown } from "react-native-material-dropdown";
+import axios from "axios";
 
 export default class Home extends Component {
   filter = [
@@ -23,24 +25,32 @@ export default class Home extends Component {
       Price: 5000,
       Image:
         "https://cdn.pixabay.com/photo/2016/11/29/05/25/animal-1867521_960_720.jpg",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of ",
     },
     {
       Name: "Black Chick",
       Price: 3000,
       Image:
         "https://cdn.pixabay.com/photo/2016/11/29/05/25/animal-1867521_960_720.jpg",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of ",
     },
     {
       Name: "White Chick",
       Price: 8000,
       Image:
         "https://cdn.pixabay.com/photo/2016/11/29/05/25/animal-1867521_960_720.jpg",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of ",
     },
     {
       Name: "Red Chick",
       Price: 7000,
       Image:
         "https://cdn.pixabay.com/photo/2016/11/29/05/25/animal-1867521_960_720.jpg",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of ",
     },
     {
       Name: "Yellow Chick",
@@ -52,9 +62,25 @@ export default class Home extends Component {
 
   state = {
     filterValue: 0,
+    Comments: [],
+    isLoading: true,
   };
 
   componentDidMount() {
+    console.disableYellowBox = true;
+
+    axios
+      .get("https://my-json-server.typicode.com/typicode/demo/db")
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          Comments: res.data.comments,
+          isLoading: false,
+        });
+      });
+
+    //axios.get("http://192.168.2.106:3030/api/getUser")
+
     this.props.navigation.setOptions({
       headerRight: () => (
         <View style={{ width: 100 }}>
@@ -140,6 +166,17 @@ export default class Home extends Component {
             }
           })}
         </ScrollView>
+
+        {this.state.isLoading ? (
+          <ActivityIndicator style={{ marginTop: 20 }} size="large" />
+        ) : (
+          this.state.Comments.map((item) => (
+            <View style={{ margin: 20 }}>
+              <Text>id: {item.id}</Text>
+              <Text>body: {item.body}</Text>
+            </View>
+          ))
+        )}
       </ScrollView>
     );
   }
