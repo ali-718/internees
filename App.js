@@ -9,7 +9,7 @@ import {
 import Home from "./screens/Home";
 import About from "./screens/About";
 import Description from "./screens/Description";
-
+import "./config";
 const Stack = createStackNavigator();
 
 export default class App extends Component {

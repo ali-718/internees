@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Dropdown } from "react-native-material-dropdown";
 import axios from "axios";
+import * as f from "firebase";
 
 export default class Home extends Component {
   filter = [
@@ -67,6 +68,37 @@ export default class Home extends Component {
   };
 
   componentDidMount() {
+    // f.database().ref("users").child("002").set({
+    //   Name: "Talal",
+    //   age: 21,
+    // });
+
+    // f.database().ref("users").push({
+    //   Name: "Laiba",
+    //   age: 20,
+    // });
+
+    // f.database().ref("users").child("-M6-YoHReh2HWgtIH4Fc").remove();
+
+    // f.database().ref("users").child("-M6-YsoS9lD2Uqww4neK").update({
+    //   age: 30,
+    // });
+
+    f.database()
+      .ref("category")
+      .once("value")
+      .then((res) => {
+        res.forEach((snapshot) => {
+          if (snapshot.val().Name == "Mobiles") {
+            f.database().ref("products").push({
+              Nmae: "iphone X",
+              price: 85000,
+              category: snapshot.key,
+            });
+          }
+        });
+      });
+
     console.disableYellowBox = true;
 
     axios
