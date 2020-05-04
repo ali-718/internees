@@ -65,6 +65,7 @@ export default class Home extends Component {
     filterValue: 0,
     Comments: [],
     isLoading: true,
+    Data: [],
   };
 
   componentDidMount() {
@@ -84,20 +85,42 @@ export default class Home extends Component {
     //   age: 30,
     // });
 
+    // f.database()
+    //   .ref("category")
+    //   .once("value")
+    //   .then((res) => {
+    //     res.forEach((snapshot) => {
+    //       if (snapshot.val().Name == "Mobiles") {
+    //         f.database().ref("products").push({
+    //           Nmae: "iphone X",
+    //           price: 85000,
+    //           category: snapshot.key,
+    //         });
+    //       }
+    //     });
+    //   });
+
     f.database()
-      .ref("category")
+      .ref("products")
       .once("value")
       .then((res) => {
+        // console.log(res.val());
+
         res.forEach((snapshot) => {
-          if (snapshot.val().Name == "Mobiles") {
-            f.database().ref("products").push({
-              Nmae: "iphone X",
-              price: 85000,
-              category: snapshot.key,
-            });
-          }
+          // console.log(snapshot.val());
+          // console.log(snapshot.key);
+
+          let Data = { id: snapshot.key, ...snapshot.val() };
+
+          this.setState({
+            Data: [...this.state.Data, Data],
+          });
+
+          // console.log(Data);
         });
       });
+
+    f.database().ref("products").child("001").remove();
 
     console.disableYellowBox = true;
 
@@ -199,7 +222,15 @@ export default class Home extends Component {
           })}
         </ScrollView>
 
-        {this.state.isLoading ? (
+        {this.state.Data.map((item) => (
+          <View style={{ margin: 20 }}>
+            <Text>id: {item.id}</Text>
+            <Text>Name: {item.Name}</Text>
+            <Text>Price: {item.price}</Text>
+          </View>
+        ))}
+
+        {/* {this.state.isLoading ? (
           <ActivityIndicator style={{ marginTop: 20 }} size="large" />
         ) : (
           this.state.Comments.map((item) => (
@@ -208,7 +239,7 @@ export default class Home extends Component {
               <Text>body: {item.body}</Text>
             </View>
           ))
-        )}
+        )} */}
       </ScrollView>
     );
   }
