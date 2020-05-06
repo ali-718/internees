@@ -10,6 +10,7 @@ import Home from "./screens/Home";
 import About from "./screens/About";
 import Description from "./screens/Description";
 import "./config";
+import EditScreen from "./screens/EditScreen";
 const Stack = createStackNavigator();
 
 export default class App extends Component {
@@ -23,6 +24,7 @@ export default class App extends Component {
             headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
           }}
         >
+          <Stack.Screen name="Edit" component={EditScreen} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="About" component={About} />
           <Stack.Screen name="Desc" component={Description} />
