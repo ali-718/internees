@@ -1,13 +1,13 @@
 import * as firebase from "firebase";
 
 var firebaseConfig = {
-  apiKey: "AIzaSyAKp3fk6mIj7F1ucViVh3DdNbJJOGLfDgc",
-  authDomain: "internees-5962a.firebaseapp.com",
-  databaseURL: "https://internees-5962a.firebaseio.com",
-  projectId: "internees-5962a",
-  storageBucket: "internees-5962a.appspot.com",
-  messagingSenderId: "654504383744",
-  appId: "1:654504383744:web:a64ec5afc4033e801f4fe5",
+  apiKey: "AIzaSyDVYqlPQgKKIaZoliWuOG5k90xqurQQlaQ",
+  authDomain: "internees-62eb7.firebaseapp.com",
+  databaseURL: "https://internees-62eb7.firebaseio.com",
+  projectId: "internees-62eb7",
+  storageBucket: "internees-62eb7.appspot.com",
+  messagingSenderId: "440471054507",
+  appId: "1:440471054507:web:75438db90a795997216fee",
 };
 
 firebase.initializeApp(firebaseConfig);

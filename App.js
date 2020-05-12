@@ -11,6 +11,8 @@ import About from "./screens/About";
 import Description from "./screens/Description";
 import "./config";
 import EditScreen from "./screens/EditScreen";
+import splashscreen from "./screens/splashscreen";
+import Login from "./screens/Login";
 const Stack = createStackNavigator();
 
 export default class App extends Component {
@@ -24,6 +26,12 @@ export default class App extends Component {
             headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
           }}
         >
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Splash"
+            component={splashscreen}
+          />
+          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Edit" component={EditScreen} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="About" component={About} />
